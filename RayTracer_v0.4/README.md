@@ -1,2 +1,2 @@
 ## Start 
-To use the objreader, use the 1.obj file thats in the RAYTRACER folder 
+In this time i use the cube.obj instead the 1.obj for the amount of triangles 
