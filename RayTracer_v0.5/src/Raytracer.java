@@ -55,15 +55,12 @@ public class Raytracer {
     // shade calculates the final color of a pixel using flat shading
     private Color shade(Intersection intersection) {
  
-        // we need the normal of the object that was hit
-
         Vector3D N;
  
         if (intersection.object instanceof Triangle) {
-            N = ((Triangle) intersection.object).getNormal();
+            Triangle tri = (Triangle) intersection.object;
+            N = tri.getPhongNormal(intersection.u, intersection.v);
         } else {
-            // for spheres we use a default normal pointing to the camera
-            // so they still get some light
             N = new Vector3D(0, 0, 1);
         }
  
