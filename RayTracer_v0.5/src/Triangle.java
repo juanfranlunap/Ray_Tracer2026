@@ -5,6 +5,7 @@ public class Triangle extends Object3D {
     public Vector3D flatNormal;
     public Vector3D n0, n1, n2;
     public Vector3D v0, v1, v2;
+    public int smoothingGroup;
 
 
     double tNear   = 0.001;
@@ -13,17 +14,18 @@ public class Triangle extends Object3D {
 
     
     public Triangle(Vector3D v0, Vector3D v1, Vector3D v2,
-                    Vector3D n0, Vector3D n1, Vector3D n2, Color color) {
+                    Vector3D n0, Vector3D n1, Vector3D n2, int smoothingGroup, Color color) {
         super(color);
         this.v0 = v0; this.v1 = v1; this.v2 = v2;
         this.n0 = n0; this.n1 = n1; this.n2 = n2;
+        this.smoothingGroup = smoothingGroup;
         Vector3D V = v1.subtract(v0);
         Vector3D W = v0.subtract(v2);
         this.flatNormal = V.cross(W).normalize();
     }
  
     public Triangle(Vector3D v0, Vector3D v1, Vector3D v2, Color color) {
-        this(v0, v1, v2, null, null, null, color);
+        this(v0, v1, v2, null, null, null, 0, color);
     }
 
 
@@ -63,7 +65,7 @@ public class Triangle extends Object3D {
         // w = 1 - u - v  
         // N = w*n0 + u*n1 + v*n2  then normalize
     public Vector3D getPhongNormal(double u, double v) {
- 
+        if (smoothingGroup == 0) return flatNormal;
         // if we have no vertex normals from the obj, use the flat normal
         if (n0 == null || n1 == null || n2 == null) return flatNormal;
  

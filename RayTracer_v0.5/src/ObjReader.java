@@ -17,6 +17,7 @@ public class ObjReader {
         List<Vector3D> vertices  = new ArrayList<>();
         List<Vector3D> normals   = new ArrayList<>();
         List<Triangle> triangles = new ArrayList<>();
+        int currentSmoothingGroup = 0;
 
         try {
             BufferedReader reader = new BufferedReader(new FileReader(filename));
@@ -44,6 +45,16 @@ public class ObjReader {
                     normals.add(new Vector3D(x, y, z));
                 }
 
+
+                if (parts[0].equals("s")) {
+                    if (parts[1].equals("off") || parts[1].equals("0")) {
+                        currentSmoothingGroup = 0;
+                    } else {
+                        currentSmoothingGroup = Integer.parseInt(parts[1]);
+                    }
+                }
+
+
                 // we only need the first number before the /
                 if (parts[0].equals("f")) {
 
@@ -70,7 +81,7 @@ public class ObjReader {
                         if (ni2 > 0) n2 = normals.get(ni2 - 1);
                     }
 
-                    triangles.add(new Triangle(v0, v1, v2, n0, n1, n2, color));
+                     triangles.add(new Triangle(v0, v1, v2, n0, n1, n2, currentSmoothingGroup, color));
 
                     // if the face has 4 vertices (quad) we split it into 2 triangles
                     if (parts.length == 5) {
@@ -83,7 +94,7 @@ public class ObjReader {
                             if (ni3 > 0) n3 = normals.get(ni3 - 1);
                         }
 
-                        triangles.add(new Triangle(v0, v2, v3, n0, n2, n3, color));
+                        triangles.add(new Triangle(v0, v2, v3, n0, n2, n3, currentSmoothingGroup, color));
                     }
                 }
             }
