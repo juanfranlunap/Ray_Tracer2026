@@ -20,33 +20,30 @@ public class Main {
         }
 
 
-        // directional light 1
-        scene.addLight(new DirectionalLight(
-            new Vector3D(1.0, -0.5, 1.0),
-            Color.WHITE,
-            1.1
-        ));
-
-        // directional light 2 
-        scene.addLight(new DirectionalLight(
-            new Vector3D(-1.0, 0.0, 1.0),
-            Color.RED,
-            0.5
-        ));
-
-        // point light 
-        scene.addLight(new PointLight(
-            new Vector3D(0.5, 3.0, 2.0), 
-            Color.WHITE,
-            0.9
-        ));
-
         Camera camera = new Camera(
-            new Vector3D(0.5, 0.5, 4.0),
-            800,
-            600,
-            60.0
+        new Vector3D(1.5, 1.5, 3.0),  
+        800,
+        600,
+        60.0
         );
+
+        scene.addLight(new DirectionalLight(
+        new Vector3D(-1.0, -1.0, -1.0),  // from the top-left-front
+        Color.WHITE,
+        1.1
+        ));
+
+        scene.addLight(new DirectionalLight(
+        new Vector3D(1.0, 0.0, -1.0),   // from the right
+        Color.WHITE,
+        0.6
+        ));
+
+        scene.addLight(new PointLight(
+        new Vector3D(2.0, 3.0, 3.0),
+        Color.WHITE,
+        0.9
+        ));
 
         Raytracer raytracer = new Raytracer(scene, camera);
         raytracer.renderToFile("output_v06.png");
