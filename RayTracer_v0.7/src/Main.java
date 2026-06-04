@@ -30,20 +30,20 @@ public class Main {
         scene.addLight(new DirectionalLight(
             new Vector3D(0.0, 0.0, -1.0),
             Color.WHITE,
-            0.2
+            0.15
         ));
 
         scene.addLight(new DirectionalLight(
             new Vector3D(1.0, -1.0, -0.5),
             Color.WHITE,
-            0.15
+            0.1
         ));
 
 
         scene.addLight(new PointLight(
             new Vector3D(5.0, 15.0, 25.0),
             Color.WHITE,
-            800.0
+            1200.0
         ));
 
         Raytracer raytracer = new Raytracer(scene, camera);
